@@ -44,11 +44,12 @@ class Login extends React.Component<any, LoginState> {
                 <div className={`${prefix}-content`}>
                     <div className={`${prefix}-content-item`}>
                         <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#icon-player"></use>
+                            <use xlinkHref="#icon-snorlax"></use>
                         </svg>
                     </div>
                     <div className={`${prefix}-content-item`}>
                         <StatefulInput
+                            placeholder={'username'}
                             startEnhancer={
                                 <svg className="icon" aria-hidden="true">
                                     <use xlinkHref="#icon-superball"></use>
@@ -63,6 +64,7 @@ class Login extends React.Component<any, LoginState> {
                     <div className={`${prefix}-content-item`}>
                         <StatefulInput
                             type='password'
+                            placeholder={'password'}
                             startEnhancer={
                                 <svg className="icon" aria-hidden="true">
                                     <use xlinkHref="#icon-ultra-ball"></use>
