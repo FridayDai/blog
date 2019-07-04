@@ -1,5 +1,6 @@
 const path = require('path');
 const ENTRY = path.resolve(__dirname, 'index.js');
+const ICONFONT = path.resolve(__dirname, 'src', 'asset', 'font', 'iconfont.js');
 const DIST = path.resolve(__dirname, 'dist');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const htmlwebpackplugin = require('html-webpack-plugin');
@@ -10,7 +11,7 @@ const plugins = [
         {
             'title': 'blog',
             'template': 'template.html',
-            'chunks': ['index'],
+            'chunks': ['index', 'iconfont'],
             'filename': 'index.html',
             // 'vendor': DLL,
             'minify': {
@@ -29,7 +30,8 @@ const plugins = [
 module.exports = {
     mode: 'production',
     entry: {
-        'index': ENTRY
+        'index': ENTRY,
+        'iconfont': ICONFONT
     },
     output: {
         path: DIST,
@@ -85,7 +87,7 @@ module.exports = {
                 'test': /\.(less|scss|css)$/,
                 'use': [
                     MiniCssExtractPlugin.loader,
-                    'css-loader?minimize',
+                    'css-loader',
                     {
                         'loader': 'postcss-loader',
                         'options': { // 如果没有options这个选项将会报错 No PostCSS Config found
@@ -103,7 +105,7 @@ module.exports = {
                 ]
             },
             {
-                'test': /\.(png|jpg|gif|svg|ttf|woff|eot)$/,
+                'test': /\.(png|jpg|gif|svg|ttf|woff|eot|woff2)$/,
                 'use': ['url-loader?limit=100000&name=assets/[name]_[hash:8].[ext]']
             }
         ]

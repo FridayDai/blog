@@ -3,11 +3,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const ENTRY = path.resolve(__dirname, 'index.js');
+const ICONFONT = path.resolve(__dirname, 'src', 'asset', 'font', 'iconfont.js');
 const DIST = path.resolve(__dirname, 'dist');
 
 module.exports = {
     mode: 'development',
-    entry: ENTRY,
+    entry: {
+        'index': ENTRY,
+        'iconfont': ICONFONT
+    },
     output: {
         path: DIST,
         filename: "[name]_[hash:8]_bundle.js",
@@ -32,7 +36,7 @@ module.exports = {
             {
                 test: /\.(less|scss|css)$/,
                 exclude: ['/node_modules/', DIST],
-                loaders: ['style-loader', 'css-loader?minimize',
+                loaders: ['style-loader', 'css-loader',
                     {
                         'loader': 'postcss-loader',
                         'options': { // 如果没有options这个选项将会报错 No PostCSS Config found
@@ -51,7 +55,7 @@ module.exports = {
             },
             {
                 exclude: ['/node_modules/', DIST],
-                test: /\.(png|jpg|gif|svg|ttf|woff|eot)$/,
+                test: /\.(png|jpg|gif|svg|ttf|woff|eot|woff2)$/,
                 use: ['url-loader?limit=10000&name=[name]_[hash:8].[ext]']
             }
         ]
@@ -98,6 +102,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'blog',
             filename: 'index.html',
+            chunks: ['index', 'iconfont'],
             template: path.resolve(__dirname, 'template.html')
         }),
         new CleanWebpackPlugin()

@@ -2,18 +2,18 @@
   "compilerOptions": {
     "sourceMap": true,
     "noImplicitAny": false,
-    "module": "commonjs",
+    "module": "ES6",
     "target": "es6",
     "jsx": "react",
     "strictNullChecks": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true
   },
-//  "typeRoots": [
-//    "./node_modules/@types",
-//    "./types"
-//  ],
+  "typeRoots": [
+    "./node_modules/@types"
+  ],
 //  "include": [
 //    "src"
 //  ],
