@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Provider }from 'react-redux';
 import store from './store';
 import { BrowserRouter as Router } from "react-router-dom";
-import Homepage from '@container/Homepage';
+import Homepage from './src/container/Homepage';
 import { Client as Styletron } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
 import { LightTheme, BaseProvider } from 'baseui';

@@ -2,7 +2,7 @@
   "name": "blog",
   "version": "1.0.0",
   "description": "this is my blog page based on React + typescript + less",
-  "main": "index.js",
+  "main": "index.tsx",
   "scripts": {
     "dev": "webpack-dev-server --open",
     "production": "webpack --config webpack.production.config.js",

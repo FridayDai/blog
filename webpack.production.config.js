@@ -1,5 +1,5 @@
 const path = require('path');
-const ENTRY = path.resolve(__dirname, 'index.js');
+const ENTRY = path.resolve(__dirname, 'index.tsx');
 const ICONFONT = path.resolve(__dirname, 'src', 'asset', 'font', 'iconfont.js');
 const DIST = path.resolve(__dirname, 'dist');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');

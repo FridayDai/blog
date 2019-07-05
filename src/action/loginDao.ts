@@ -1,5 +1,5 @@
 import { axiosPost } from '../util/index';
-import { dispatch } from '../../store.js';
+import { dispatch } from '../../store';
 import CryptoJS from 'crypto-js';
 
 export const LOGIN: string = "LOGIN";
