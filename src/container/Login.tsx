@@ -12,8 +12,12 @@ interface LoginState {
     username: string,
     password: string
 }
+export interface LoginProps {
+    isLogin: boolean,
+    errMsg: string
+}
 
-export default class Login extends React.Component<any, LoginState> {
+export default class Login extends React.Component<LoginProps, LoginState> {
     private login: React.ReactNode;
 
     constructor(props:any) {
