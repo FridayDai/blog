@@ -1,7 +1,15 @@
-const homepageState = (state = {}, action) => {
+import { LOGIN } from "../action/loginDao";
+import { Action } from './index';
+
+const initState = {
+    'isLogin': false,
+    'errMsg': ''
+};
+
+const homepageState = (state = initState, action: Action) => {
     switch (action.type) {
-        case 'getCompanyDetail':
-            return Object.assign({}, state, { 'data': action.data });
+        case LOGIN:
+            return Object.assign({}, state, { ...initState, 'isLogin': action.data.code === 10000, 'errMsg': action.data.msg ? action.data.msg : '' });
         default:
             return state;
     }

@@ -3,16 +3,17 @@ import classnames from 'classnames';
 import { withRouter } from "react-router-dom";
 import { StatefulInput } from 'baseui/input';
 import { Button, KIND } from 'baseui/button';
+import { login } from '../action/loginDao';
 import '@style/login.less';
 
-let defualtPrefix = 'login-container';
+let defaultPrefix = 'login-container';
 
 interface LoginState {
     username: string,
     password: string
 }
 
-class Login extends React.Component<any, LoginState> {
+export default class Login extends React.Component<any, LoginState> {
     private login: React.ReactNode;
 
     constructor(props:any) {
@@ -29,32 +30,29 @@ class Login extends React.Component<any, LoginState> {
 
     handleLogin = () => {
         const { username, password } = this.state;
-        console.log(username, password);
+        login(username, password);
     };
 
-    test = () => {
-        /* tslint:disable-next-line */
-        return ;
-    };
+    renderSVG(type) {
+        return (
+            <svg className="icon" aria-hidden="true">
+                <use xlinkHref={type}></use>
+            </svg>
+        );
+    }
 
     renderComponent = () => {
-        const prefix = classnames(defualtPrefix);
+        const prefix = classnames(defaultPrefix);
         return (
             <div ref={this.getContainer} className={prefix}>
                 <div className={`${prefix}-content`}>
                     <div className={`${prefix}-content-item`}>
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#icon-snorlax"></use>
-                        </svg>
+                        {this.renderSVG('#icon-snorlax')}
                     </div>
                     <div className={`${prefix}-content-item`}>
                         <StatefulInput
                             placeholder={'username'}
-                            startEnhancer={
-                                <svg className="icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-superball"></use>
-                                </svg>
-                            }
+                            startEnhancer={this.renderSVG('#icon-superball')}
                             value={this.state.username}
                             onChange={(e) => {
                                 this.setState({ 'username': e.currentTarget.value });
@@ -65,11 +63,7 @@ class Login extends React.Component<any, LoginState> {
                         <StatefulInput
                             type='password'
                             placeholder={'password'}
-                            startEnhancer={
-                                <svg className="icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-ultra-ball"></use>
-                                </svg>
-                            }
+                            startEnhancer={this.renderSVG('#icon-ultra-ball')}
                             value={this.state.password}
                             onChange={(e) => {
                                 this.setState({ 'password': e.currentTarget.value });
@@ -94,5 +88,3 @@ class Login extends React.Component<any, LoginState> {
         return (<React.Fragment>{this.renderComponent()}</React.Fragment>);
     }
 }
-
-export default withRouter(Login);
