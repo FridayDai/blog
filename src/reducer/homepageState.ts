@@ -1,19 +1,17 @@
-import { LOGIN } from "../action/loginDao";
+import { AJAX_PROGREESS } from "../action/loginDao";
 import { Action } from './index';
-import { LoginProps } from "../container/Login";
+import { LoginObject } from "../container/Login";
 
-const initState: LoginProps = {
-    'isLogin': false,
-    'errMsg': ''
+const initState: LoginObject = {
+    'progressValue': 0
 };
 
-const homepageState = (state: LoginProps = initState, action: Action) => {
+const homepageState = (state: LoginObject = initState, action: Action) => {
     switch (action.type) {
-        case LOGIN:
+        case AJAX_PROGREESS:
             return Object.assign({}, state, {
                 ...initState,
-                'isLogin': action.data.code === 10000,
-                'errMsg': action.data.msg ? action.data.msg : ''
+                'progressValue': action.progressValue
             });
         default:
             return state;

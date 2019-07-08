@@ -1,13 +1,8 @@
-import { axiosPost } from '../util/index';
-import { dispatch } from '../../store';
+import { axiosPostCustomize } from '../util/index';
+// import { dispatch } from '../../store';
 import CryptoJS from 'crypto-js';
 
-export const LOGIN: string = "LOGIN";
-
-let action = {
-    'type': '',
-    'data': {}
-};
+export const AJAX_PROGREESS: string = "AJAX_PROGREESS";
 
 const encryptPwd = (pwd) => {
     const KEY = 'abcdefgabcdefg12';
@@ -21,10 +16,7 @@ const encryptPwd = (pwd) => {
 };
 
 export const login = (username: string, password: string) => {
-    return axiosPost('/rest/login', {
-        'name': username,
-        'password': encryptPwd(password)
-    }).then(res => {
-        dispatch({...action, 'type': LOGIN, 'data': res});
-    }).catch(xhr => console.error(xhr));
+    return axiosPostCustomize('/rest/login', { 'name': username, 'password': encryptPwd(password) })
+        .then(res => res)
+        .catch(xhr => console.error(xhr));
 };

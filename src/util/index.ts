@@ -1,4 +1,6 @@
 import axios, { Method } from 'axios';
+import { dispatch } from '../../store';
+import { AJAX_PROGREESS } from '../action/loginDao';
 
 const parseRes = (res) => {
     if(res.status >= 200 && res.status < 400) {
@@ -8,19 +10,33 @@ const parseRes = (res) => {
     }
 };
 
+export const axiosGetCustomize = (url: string, params: {}) => {
+    return axiosCustomize(url, params, 'GET', 'application/json', {
+        'onUploadProgress': (e) => {
+            const progress = 100 * e.loaded / e.total;
+            dispatch({ 'type': AJAX_PROGREESS, 'progressValue': progress });
+            return progress;
+        }
+    });
+};
+
+export const axiosPostCustomize = (url: string, params: {}) => {
+    return axiosCustomize(url, params, 'POST', 'application/json', {
+        'onUploadProgress': (e) => {
+            const progress = 100 * e.loaded / e.total;
+            dispatch({ 'type': AJAX_PROGREESS, 'progressValue': progress });
+            setTimeout(() => { dispatch({ 'type': AJAX_PROGREESS, 'progressValue': 0 }); }, 500);
+            return progress;
+        }
+    });
+};
+
 export const axiosGet = (url: string, params: {}) => {
-  return axios.get(url, {
-      'params': {
-          ...params
-      }
-  }).then(res => parseRes(res))
-      .catch(xhr => console.error(xhr));
+    return axiosCustomize(url, params, 'GET', 'application/json', {});
 };
 
 export const axiosPost = (url: string, params: {}) => {
-    return axios.post(url, params)
-        .then(res => parseRes(res))
-        .catch(xhr => console.error(xhr));
+    return axiosCustomize(url, params, 'POST', 'application/json', {});
 };
 
 export const axiosCustomize = (url:string, data: {}, method: Method = 'POST', contentType:string = 'application/json', rest: {}) => {

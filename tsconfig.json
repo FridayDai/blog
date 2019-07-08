@@ -11,12 +11,12 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true
   },
-  "typeRoots": [
-    "./node_modules/@types"
-  ],
-//  "include": [
-//    "src"
+//  "typeRoots": [
+//    "./node_modules/@types"
 //  ],
+  "include": [
+    "src"
+  ],
   "exclude": [
     "node_modules"
   ]

@@ -3,7 +3,8 @@ import homepageState from './homepageState';
 
 export interface Action {
     type: string,
-    data?: any
+    data?: any,
+    progressValue?: number
 }
 
 const rootReducer = combineReducers({
