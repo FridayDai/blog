@@ -1,6 +1,7 @@
 .idea
 .vscode
 dist
+serverDist
 
 # Logs
 logs
