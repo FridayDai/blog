@@ -198,7 +198,10 @@ export const axiosCustomize = (url:string, data: {}, method: Method = 'POST', co
     // }
     const options = {
         method,
-        'headers': { 'content-type': contentType },
+        'headers': {
+            'content-type': contentType,
+            'Authorization': localStorage.getItem('token')
+        },
         data,
         url,
         ...rest

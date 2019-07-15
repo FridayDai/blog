@@ -90,9 +90,9 @@ module.exports = {
             //     'pathRewrite': { '^/api/v1/op': '/api/v1' },
             //     'secure': false
             // },
-            '/rest/*': {
+            '/api/*': {
                 // 'target': 'http://10.91.255.79:8001',
-                'target': 'https://106.15.93.13',
+                'target': 'http://localhost:3002/',
                 'secure': false
             }
         }

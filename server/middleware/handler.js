@@ -23,7 +23,7 @@ export const errorHandler = (err, req, res, next) => {
 };
 
 export const jwtHandler = (req, res, next) => {
-    if(req.originalUrl === '/login') {
+    if(req.originalUrl === '/api/login') {
         next();
     } else {
         const token = req.headers.authorization;

@@ -9,7 +9,7 @@ export const findAll = () => {
 };
 
 export const findUser = (name, password) => {
-    return UserTable.findAll({
+    return UserTable.findOne({
         attributes: ['name', 'password', 'token', 'readOnly'],
         where: {
             name: {

@@ -5,7 +5,6 @@ import { StatefulInput } from 'baseui/input';
 import { Button, KIND } from 'baseui/button';
 import { login } from '../action/loginDao';
 import '@style/login.less';
-import { ProgressBar } from "baseui/progress-bar";
 import { toast } from 'react-component-dy';
 
 let defaultPrefix = 'login-container';
@@ -67,7 +66,10 @@ export default class Login extends React.Component<LoginProps, LoginState> {
         }
 
         const res = await login(username, password);
-        if(res.code === 10000 && res.data === 1) {
+        if(res.status === 200) {
+            localStorage.setItem('name', res.data.name);
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('readOnly', res.data.readOnly);
             setTimeout(() => history.push('/test'), 500);
         } else {
             toast.error(res.msg);
@@ -84,10 +86,8 @@ export default class Login extends React.Component<LoginProps, LoginState> {
 
     renderComponent = () => {
         const prefix = classnames(defaultPrefix);
-        const { progressValue } = this.props.homepageState;
         return (
             <div ref={this.getContainer} className={prefix}>
-                <ProgressBar value={progressValue} successValue={100} />
                 <div className={`${prefix}-content`}>
                     <div className={`${prefix}-content-item`}>
                         {this.renderSVG('#icon-snorlax')}
