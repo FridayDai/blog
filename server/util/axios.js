@@ -190,3 +190,9 @@ const parseRes = (res) => {
         throw(res);
     }
 };
+
+export const Data = {
+    data: null,
+    msg: null,
+    status: null
+};

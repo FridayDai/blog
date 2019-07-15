@@ -1,16 +1,19 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import router from './router/index';
+import { TestRouter, LoginRouter } from './router/index';
 import helmet from 'helmet';
-import { timeHandler, errorHandler } from './middleware/handler';
+import { timeHandler, errorHandler, jwtHandler } from './middleware/handler';
 
+const secretKey = 'blog';
 const app = express();
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(timeHandler);
-app.use(router);
+app.use(jwtHandler);
+app.use(LoginRouter);
+app.use('/test', TestRouter);
 
 // errorHandler 最后调用
 app.use(errorHandler);
