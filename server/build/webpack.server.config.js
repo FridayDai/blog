@@ -5,7 +5,7 @@ const ENTRY = path.resolve(__dirname, '../app.js');
 const DIST = path.resolve(__dirname, '../../serverDist');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     target: 'node',
     entry: {
         'index': ENTRY,
