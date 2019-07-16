@@ -2,6 +2,7 @@
 .vscode
 dist
 serverDist
+blog.war
 
 # Logs
 logs

@@ -8,6 +8,7 @@
     "production": "webpack --config webpack.production.config.js",
     "server": "webpack --config ./server/build/webpack.server.config.js && sudo node serverDist/server.js",
     "build": "webpack --config ./server/build/webpack.server.config.js",
+    "start": "node ./serverDist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
