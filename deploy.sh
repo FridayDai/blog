@@ -1,4 +1,7 @@
 #!/bin/sh
+npm install
+npm run production
+npm run build
 jar -cvf blog.war *
 echo "!Password1234"
 scp /Users/bytedance/workspace/blog/blog.war root@106.15.93.13:/root/server/blog
