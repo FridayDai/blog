@@ -1,4 +1,5 @@
 import { axiosGet, axiosPost } from '../util/index';
+import { toast } from 'react-component-dy';
 // import { dispatch } from '../../store';
 // import CryptoJS from 'crypto-js';
 
@@ -17,12 +18,10 @@ export const AJAX_PROGREESS: string = "AJAX_PROGREESS";
 
 export const login = (username: string, password: string) => {
     return axiosPost('/api/login', { 'name': username, 'password': password })
-        .then(res => res)
-        .catch(xhr => console.error(xhr));
+        .then(res => res);
 };
 
 export const testlogin = () => {
     return axiosGet('/api/testlogin', {})
-        .then(res => res)
-        .catch(xhr => console.error(xhr));
+        .then(res => res);
 };

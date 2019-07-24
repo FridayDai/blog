@@ -1,6 +1,7 @@
 import axios, { Method } from 'axios';
 import { dispatch } from '../../store';
 import { AJAX_PROGREESS } from '../action/loginDao';
+import { toast } from 'react-component-dy';
 
 const parseRes = (res) => {
     if(res.status >= 200 && res.status < 400) {
@@ -207,6 +208,7 @@ export const axiosCustomize = (url:string, data: {}, method: Method = 'POST', co
         ...rest
     };
 
-    return axios.request(options).then(res => parseRes(res)).catch(xhr => console.error(xhr));
+    return axios.request(options).then(res => parseRes(res)).catch(xhr => {
+        toast.error(`${xhr.response.status} - ${xhr.response.statusText}`);
+    });
 };
-

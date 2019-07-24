@@ -27,7 +27,7 @@ export const jwtHandler = (req, res, next) => {
         next();
     } else {
         const token = req.headers.authorization;
-        logger.info(token);
+        logger.info("token is: ", token);
         jwt.verify(token, secretKey, {
             issuer: 'fridaydai-blog',
             audience: 'blog'

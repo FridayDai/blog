@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(timeHandler);
-app.use(jwtHandler);
+// app.use(jwtHandler);
 app.use(prefix, LoginRouter);
 app.use('/test', TestRouter);
 
