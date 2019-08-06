@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Route, Link, Switch, withRouter } from "react-router-dom";
 import Login from './Login';
 import Test from './Test';
+import Doc from './Doc';
 import { connect } from 'react-redux';
 
 let defaultPrefix = 'homepage-container';
@@ -19,9 +20,10 @@ class Homepage extends React.Component<any, {}> {
         return(
             <div className={defaultPrefix}>
                 <Switch>
-                    <Route exact path='/' component={Bind(Login)} />
-                    <Route exact path='/login' component={Bind(Login)} />
-                    <Route exact path='/test' component={Bind(Test)} />
+                    <Route exact path='/' component={Login} />
+                    <Route exact path='/login' component={Login} />
+                    <Route exact path='/test' component={Test} />
+                    <Route exact path='/doc' component={Doc} />
                 </Switch>
             </div>
         );

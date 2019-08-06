@@ -107,6 +107,11 @@ module.exports = {
             {
                 'test': /\.(png|jpg|gif|svg|ttf|woff|eot|woff2)$/,
                 'use': ['url-loader?limit=100000&name=assets/[name]_[hash:8].[ext]']
+            },
+            {
+                'exclude': ['/node_modules/', DIST],
+                'test': /\.(mp3)$/,
+                'use': ['file-loader']
             }
         ]
     },

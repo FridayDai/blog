@@ -1,14 +1,8 @@
 import { combineReducers } from 'redux';
-import homepageState from './homepageState';
-
-export interface Action {
-    type: string,
-    data?: any,
-    progressValue?: number
-}
+import docProps from './docProps';
 
 const rootReducer = combineReducers({
-    homepageState
+    docProps
 });
 
 export default rootReducer;

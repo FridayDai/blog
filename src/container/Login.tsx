@@ -6,6 +6,7 @@ import { Button, KIND } from 'baseui/button';
 import { login } from '../action/loginDao';
 import '@style/login.less';
 import { toast } from 'react-component-dy';
+import { connect } from 'react-redux';
 
 let defaultPrefix = 'login-container';
 
@@ -22,7 +23,7 @@ export interface LoginProps {
     history?: any
 }
 
-export default class Login extends React.Component<LoginProps, LoginState> {
+class Login extends React.Component<LoginProps, LoginState> {
     private login: React.ReactNode;
 
     constructor(props:any) {
@@ -70,7 +71,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
             localStorage.setItem('name', res.data.name);
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('readOnly', res.data.readOnly);
-            setTimeout(() => history.push('/test'), 500);
+            setTimeout(() => history.push('/doc'), 0);
         } else {
             toast.error(res.msg);
         }
@@ -131,3 +132,9 @@ export default class Login extends React.Component<LoginProps, LoginState> {
         return (<React.Fragment>{this.renderComponent()}</React.Fragment>);
     }
 }
+
+const Bind = (Component, mapStateToProps = (state) => state) => {
+    return withRouter(connect(mapStateToProps)(Component));
+};
+
+export default Bind(Login);

@@ -7,6 +7,6 @@ const enhancer = compose(applyMiddleware(thunk, createLogger));
 
 const store = createStore(reducer, enhancer);
 
-export const { dispatch } = store;
+export const dispatch: Function = store.dispatch;
 
 export default store;

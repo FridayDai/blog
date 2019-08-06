@@ -1,10 +1,10 @@
 import express from 'express';
+const router = express.Router();
 import { createLogger } from '../config/log4j';
 import jwt from 'jsonwebtoken';
 import { Data } from '../util/axios';
 import { findUser } from './dao/loginDao';
 const logger = createLogger('Login_Router');
-const router = express.Router();
 
 const secretKey = 'blog';
 

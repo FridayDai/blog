@@ -1,0 +1,36 @@
+@import "./index";
+@doc-container: doc-container;
+
+.@{doc-container} {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+
+  &-header {
+    flex: 0 0 64px;
+    background-color: @theme-color;
+    color: @theme-color-fallback;
+    line-height: 64px;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  &-content {
+    display: flex;
+    flex: 1 0 auto;
+    height: 100%;
+
+    &-aside {
+      flex: 0 0 360px;
+      overflow: auto;
+      border-right: 1px solid #fcfcfc;
+      height: calc(100% - 64px);
+    }
+    &-body {
+      flex: 1 1 auto;
+      overflow: auto;
+      height: calc(100% - 64px);
+    }
+  }
+}

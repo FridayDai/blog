@@ -194,5 +194,5 @@ const parseRes = (res) => {
 export const Data = {
     data: null,
     msg: null,
-    status: null
+    status: 200
 };

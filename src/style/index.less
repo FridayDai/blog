@@ -1,4 +1,8 @@
 @import "../asset/font/iconfont.css";
+
+@theme-color: #263238;
+@theme-color-fallback: #90A4AE;
+
 .icon {
   width: 1em;
   height: 1em;
@@ -26,5 +30,31 @@ html, body, #container {
     height: 100%;
   }
 }
+
+.markdown-table {
+  table {
+    border-collapse: collapse;
+  }
+
+  table, th, td {
+    border: 1px solid black;
+    border-spacing: 0px;
+  }
+}
+
+.markdown-body table{
+  width: 100%;
+  text-align: left;
+  border-radius: 0;
+  border-collapse: collapse;
+}
+.markdown-body th {
+  text-align: left;
+  padding: .5em .5em;
+  font-weight: bold;
+  background: #263238;
+  color: #ccc;
+}
+.markdown-body table,table tr th, table tr td { border:1px solid #ccc; padding: 6px; }
 
 

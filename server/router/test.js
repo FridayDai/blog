@@ -1,8 +1,8 @@
 import express from 'express';
+const router = express.Router();
 import { createLogger } from '../config/log4j';
 import { createTable, dropTable, randomInsert } from './dao/testDao';
 const logger = createLogger('Index_Router');
-const router = express.Router();
 
 router.get('/create', async (req, res) => {
     // await dropTable();

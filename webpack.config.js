@@ -31,7 +31,15 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 exclude: ['/node_modules/', DIST],
-                loaders: ['babel-loader']
+                use: [{
+                    loader: 'babel-loader',
+                    options: {//如果有这个设置则不用再添加.babelrc文件进行配置
+                        // "babelrc": false,// 不采用.babelrc的配置
+                        "plugins": [
+                            "@babel/plugin-syntax-dynamic-import"
+                        ]
+                    }
+                }]
             },
             {
                 test: /\.(less|scss|css)$/,
@@ -57,6 +65,11 @@ module.exports = {
                 exclude: ['/node_modules/', DIST],
                 test: /\.(png|jpg|gif|svg|ttf|woff|eot|woff2)$/,
                 use: ['url-loader?limit=10000&name=[name]_[hash:8].[ext]']
+            },
+            {
+                exclude: ['/node_modules/', DIST],
+                test: /\.(mp3)$/,
+                use: ['file-loader']
             }
         ]
     },

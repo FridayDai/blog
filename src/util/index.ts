@@ -32,15 +32,15 @@ export const axiosPostCustomize = (url: string, params: {}) => {
     });
 };
 
-export const axiosGet = (url: string, params: {}) => {
+export const axiosGet = (url: string, params: {} | null) => {
     return axiosCustomize(url, params, 'GET', 'application/json', {});
 };
 
-export const axiosPost = (url: string, params: {}) => {
+export const axiosPost = (url: string, params: {} | null) => {
     return axiosCustomize(url, params, 'POST', 'application/json', {});
 };
 
-export const axiosCustomize = (url:string, data: {}, method: Method = 'POST', contentType:string = 'application/json', rest: {}) => {
+export const axiosCustomize = (url:string, data: {} | null, method: Method = 'POST', contentType:string = 'application/json', rest: {}) => {
     // {
     //     // `url` is the server URL that will be used for the request
     //     url: '/user',
@@ -211,4 +211,16 @@ export const axiosCustomize = (url:string, data: {}, method: Method = 'POST', co
     return axios.request(options).then(res => parseRes(res)).catch(xhr => {
         toast.error(`${xhr.response.status} - ${xhr.response.statusText}`);
     });
+};
+
+export interface Res {
+    data?: any,
+    msg?: string,
+    status: number
+};
+
+export const handleRes = (res: Res, cb: Function) => {
+    if(res && res.status === 200) {
+        cb();
+    }
 };
