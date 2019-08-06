@@ -77,11 +77,15 @@ module.exports = {
             {
                 'test': /\.jsx?$/,
                 'exclude': /node_modules/,
-                'use': [
-                    {
-                        'loader': 'babel-loader'
+                'use': [{
+                    'loader': 'babel-loader',
+                    'options': {//如果有这个设置则不用再添加.babelrc文件进行配置
+                        // "babelrc": false,// 不采用.babelrc的配置
+                        "plugins": [
+                            "@babel/plugin-syntax-dynamic-import"
+                        ]
                     }
-                ]
+                }]
             },
             {
                 'test': /\.(less|scss|css)$/,
