@@ -13,3 +13,4 @@ echo "success"
 # docker container run --rm -p 3002:3002 -it fridaydai/blog:0.0.1
 
 
+scp /Users/bytedance/workspace/blog/serverDist/server.js admin@10.92.4.98:/www/website/blog

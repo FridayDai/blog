@@ -2,6 +2,7 @@ import axios, { Method } from 'axios';
 import { dispatch } from '../../store';
 import { AJAX_PROGREESS } from '../action/loginDao';
 import { toast } from 'react-component-dy';
+import Nprogress from 'nprogress';
 
 const parseRes = (res) => {
     if(res.status >= 200 && res.status < 400) {
@@ -197,6 +198,8 @@ export const axiosCustomize = (url:string, data: {} | null, method: Method = 'PO
     //     cancelToken: new CancelToken(function (cancel) {
     //     })
     // }
+    Nprogress.start();
+
     const options = {
         method,
         'headers': {
@@ -210,7 +213,7 @@ export const axiosCustomize = (url:string, data: {} | null, method: Method = 'PO
 
     return axios.request(options).then(res => parseRes(res)).catch(xhr => {
         toast.error(`${xhr.response.status} - ${xhr.response.statusText}`);
-    });
+    }).finally(() => Nprogress.done());
 };
 
 export interface Res {
