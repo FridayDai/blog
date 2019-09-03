@@ -57,6 +57,25 @@ export const getDocById = (id) => {
     }).then(res => res).catch(xhr => logger.error(xhr));
 };
 
+export const getDocListByKeyword = (keyword) => {
+    return DocTable.findAll({
+        attributes: ['id', 'title'],
+        where: {
+            deleteFlag: {
+                [Op.eq]: 0
+            },
+            [Op.or]: [
+                {
+                    text: { [Op.like]: `%${keyword}%` }
+                },
+                {
+                    title: { [Op.like]: `%${keyword}%` }
+                }
+            ]
+        }
+    }).then(res => res).catch(xhr => logger.error(xhr));
+};
+
 // export const findUserAndCountAll = () => {
 //     return User.findAndCountAll({
 //         attributes: ['id', 'name', 'createTime', 'updateTime'],

@@ -1,8 +1,9 @@
 import express from 'express';
 const router = express.Router();
 import { createLogger } from '../config/log4j';
+import { invariant } from '../util/index';
 import { Data } from '../util/axios';
-import { getDocList, getDocListPage, getDocTitle, getDocById } from './dao/docDao';
+import { getDocList, getDocListPage, getDocTitle, getDocById, getDocListByKeyword } from './dao/docDao';
 const logger = createLogger('Doc_Router');
 
 router.get('/getDocList', async (req, res) => {
@@ -11,9 +12,25 @@ router.get('/getDocList', async (req, res) => {
 });
 
 //  queryString pageNo, pageSize
-router.get('/getDocListPage', async (req, res) => {
+router.get('/getDocListPage', async (req, res, next) => {
     const { pageNo, pageSize } = req.query;
-    const docList = await getDocListPage(pageNo, pageSize);
+    if(invariant(pageNo, pageSize)) {
+        next(new Error('variable is null'));
+    } else {
+        const docList = await getDocListPage(pageNo, pageSize);
+        res.send({...Data, data: docList});
+    }
+});
+
+router.post('/getDocListByKeyword', async(req, res, next) => {
+    const { keyword } = req.body;
+    let docList = [];
+    if(invariant(keyword)) {
+        //next(new Error('variable is null'));
+        docList = await getDocTitle();
+    } else {
+        docList = await getDocListByKeyword(keyword);
+    }
     res.send({...Data, data: docList});
 });
 

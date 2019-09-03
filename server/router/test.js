@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 import { createLogger } from '../config/log4j';
-import { createTable, dropTable, randomInsert } from './dao/testDao';
+import { createTable, dropTable, randomInsert, randomInsertToIndexTable} from './dao/testDao';
 const logger = createLogger('Index_Router');
 
 router.get('/create', async (req, res) => {
@@ -9,6 +9,11 @@ router.get('/create', async (req, res) => {
     // await createTable();
     const rlt = await randomInsert();
     logger.info(rlt);
+    res.send(rlt);
+});
+
+router.get('/indexTest', async (req, res) => {
+    const rlt = await randomInsertToIndexTable();
     res.send(rlt);
 });
 

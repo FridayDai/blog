@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {Item, Navigation} from 'baseui/side-navigation';
+import {Input} from "baseui/input";
+import {Search} from 'baseui/icon';
 
 interface AsideProps {
     nav: Item[],
@@ -13,36 +15,47 @@ export interface Item {
     subNav?: Item[];
 }
 
-const Aside = ({nav, itemId, onNavChange}) => {
+const Aside = ({nav, itemId, onNavChange, value, onInputKeyword}) => {
     return (
-        <Navigation
-            items={nav}
-            activeItemId={itemId}
-            onChange={({event, item}) => {
-                onNavChange(item.itemId);
-                event.preventDefault();
-            }}
-            overrides={{
-                NavItem: {
-                    style: ({$active, $theme}) => {
-                        if (!$active)
+        <React.Fragment>
+            <div style={{ 'padding': '2px 1px 1px 1px' }}>
+                <Input
+                    endEnhancer={<Search size="18px" />}
+                    placeholder={'Keyword'}
+                    value={value}
+                    onChange={(e) => onInputKeyword(e.currentTarget.value)}
+                />
+            </div>
+
+            <Navigation
+                items={nav}
+                activeItemId={itemId}
+                onChange={({event, item}) => {
+                    onNavChange(item.itemId);
+                    event.preventDefault();
+                }}
+                overrides={{
+                    NavItem: {
+                        style: ({$active, $theme}) => {
+                            if (!$active)
+                                return {
+                                    ':hover': {
+                                        color: '#002db3' // $theme.colors.positive400,
+                                    },
+                                };
                             return {
+                                backgroundColor: '#455A64', // $theme.colors.positive400,
+                                borderLeftColor: $theme.colors.mono900,
+                                color: $theme.colors.mono900,
                                 ':hover': {
                                     color: '#002db3' // $theme.colors.positive400,
                                 },
                             };
-                        return {
-                            backgroundColor: '#455A64', // $theme.colors.positive400,
-                            borderLeftColor: $theme.colors.mono900,
-                            color: $theme.colors.mono900,
-                            ':hover': {
-                                color: '#002db3' // $theme.colors.positive400,
-                            },
-                        };
+                        },
                     },
-                },
-            }}
-        />
+                }}
+            />
+        </React.Fragment>
     );
 };
 

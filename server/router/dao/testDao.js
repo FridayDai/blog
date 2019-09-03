@@ -2,6 +2,7 @@ import { createLogger } from '../../config/log4j';
 import instance from '../../config/mysql';
 // import { axiosGet } from '../../util/axios';
 import TestTable from '../table/testTable';
+import IndexTable from '../table/indexTable';
 
 const logger = createLogger('Test_Dao');
 
@@ -99,3 +100,19 @@ export const randomInsert = () => {
 // export const testAxios = (url, data) => {
 //     return axiosGet(url);
 // };
+
+export const randomInsertToIndexTable = () => {
+    IndexTable.sync().then(() => {
+        const values = [];
+
+        for(let i = 0; i < 100000; i++) {
+            const obj = {};
+            obj.a = i;
+            obj.b = i * 2;
+            obj.c = i * 3;
+            values.push(obj);
+        }
+
+        return IndexTable.bulkCreate(values).then(() => console.log('insert success'));
+    }).catch(xhr => logger.error(xhr));
+};

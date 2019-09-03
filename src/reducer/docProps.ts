@@ -1,4 +1,4 @@
-import { Nav_Change, GET_NAV, GET_CONTENT } from "../action/docDao";
+import { Nav_Change, GET_NAV, GET_CONTENT, On_Input_Keyword } from "../action/docDao";
 
 export interface Action {
     type: string,
@@ -8,7 +8,8 @@ export interface Action {
 const defaultState = {
     nav: [],
     itemId: '',
-    content: Object
+    content: Object,
+    keyword: ''
 };
 
 const docProps = (state = defaultState, action: Action) => {
@@ -22,6 +23,8 @@ const docProps = (state = defaultState, action: Action) => {
             return Object.assign({}, state, { 'nav': action.data, 'itemId': action.data[0].itemId });
         case GET_CONTENT:
             return {...state, content: action.data};
+        case On_Input_Keyword:
+            return {...state, keyword: action.data };
         default:
             return state;
     }

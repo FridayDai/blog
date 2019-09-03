@@ -7,9 +7,8 @@ const logger = createLogger('Middleware_Handler');
 
 export const timeHandler = (req, res, next) => {
     const start = new Date();
+    logger.info(`${start} ${req.method} ${req.originalUrl} ${req.ip}`);
     next();
-    const end = new Date().getTime();
-    logger.info(`${start} ${req.method} ${req.originalUrl} ${req.ip}`, `Time Consume: ${end - start.getTime()}ms`);
 };
 
 export const errorHandler = (err, req, res, next) => {
@@ -17,9 +16,8 @@ export const errorHandler = (err, req, res, next) => {
     if (err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError' || err.name === 'NotBeforeError') {
         res.status(401).send({...Data, status: 401, msg: err.message});
     }
-
     if (!err.statusCode) err.statusCode = 500; // If err has no specified error code, set error code to 'Internal Server Error (500)'
-    res.status(err.statusCode).send({...Data, status: 401, msg: err.message}); // All HTTP requests must have a response, so let's send back an error with its status code and message
+    res.status(err.statusCode).send({...Data, status: err.statusCode, msg: err.message}); // All HTTP requests must have a response, so let's send back an error with its status code and message
 };
 
 export const jwtHandler = (req, res, next) => {

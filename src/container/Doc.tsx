@@ -5,11 +5,12 @@ import Content from '../components/Doc/Content';
 import { Item } from '../components/Doc/Aside';
 import { dispatch } from '../../store';
 import '../style/doc.less';
-import { onNavChange, getNav } from '../action/docDao';
+import { onNavChange, getNav, onInputKeyword, onSearchKeyword } from '../action/docDao';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 const prefixCls = 'doc-container';
+let timeout;
 
 interface DocProps {
     dispatch: Function,
@@ -18,7 +19,8 @@ interface DocProps {
     docProps: {
         itemId: string,
         nav: Item[],
-        content: object
+        content: object,
+        keyword?: string,
     }
 }
 
@@ -31,16 +33,34 @@ class Doc extends React.Component<DocProps> {
         dispatch(getNav());
     }
 
+    clear() {
+        if(timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+        }
+    }
+
     renderDocPage() {
-        const { nav, itemId, content } = this.props.docProps;
+        const { nav, itemId, content, keyword } = this.props.docProps;
 
         const contentCls = `${prefixCls}-content`;
         return (
             <div className={prefixCls}>
-                <header className={`${prefixCls}-header`}>文档</header>
+                <header className={`${prefixCls}-header`}>
+                    <span>文档</span>
+                </header>
                 <section className={contentCls}>
                     <aside className={`${contentCls}-aside`}>
                         <Aside
+                            value={keyword}
+                            onInputKeyword={(value) => {
+                                dispatch(onInputKeyword(value));
+
+                                this.clear();
+                                timeout = setTimeout(() => {
+                                    dispatch(onSearchKeyword(value));
+                                }, 400);
+                            }}
                             nav={nav}
                             itemId={itemId}
                             onNavChange={(id) => dispatch(onNavChange(id))}
