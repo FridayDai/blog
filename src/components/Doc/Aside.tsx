@@ -18,7 +18,7 @@ export interface Item {
 const Aside = ({nav, itemId, onNavChange, value, onInputKeyword}) => {
     return (
         <React.Fragment>
-            <div style={{ 'padding': '2px 1px 1px 1px' }}>
+            <div style={{ 'position': 'sticky', 'top': '0px' }}>
                 <Input
                     endEnhancer={<Search size="18px" />}
                     placeholder={'Keyword'}
@@ -36,23 +36,31 @@ const Aside = ({nav, itemId, onNavChange, value, onInputKeyword}) => {
                 }}
                 overrides={{
                     NavItem: {
-                        style: ({$active, $theme}) => {
-                            if (!$active)
-                                return {
-                                    ':hover': {
-                                        color: '#002db3' // $theme.colors.positive400,
-                                    },
-                                };
-                            return {
-                                backgroundColor: '#455A64', // $theme.colors.positive400,
-                                borderLeftColor: $theme.colors.mono900,
-                                color: $theme.colors.mono900,
-                                ':hover': {
-                                    color: '#002db3' // $theme.colors.positive400,
-                                },
-                            };
-                        },
+                        style: {
+                            'text-overflow': 'ellipsis',
+                            'overflow': 'hidden',
+                            'width': '98%',
+                            'white-space': 'nowrap'
+                        }
                     },
+                    // NavItem: {
+                    //     style: ({$active, $theme}) => {
+                    //         if (!$active)
+                    //             return {
+                    //                 ':hover': {
+                    //                     color: '#002db3', // $theme.colors.positive400,
+                    //                 },
+                    //             };
+                    //         return {
+                    //             backgroundColor: '#455A64', // $theme.colors.positive400,
+                    //             borderLeftColor: $theme.colors.mono900,
+                    //             color: $theme.colors.mono900,
+                    //             ':hover': {
+                    //                 color: '#002db3' // $theme.colors.positive400,
+                    //             }
+                    //         };
+                    //     },
+                    // },
                 }}
             />
         </React.Fragment>

@@ -22,11 +22,31 @@
     flex: 1 0 auto;
     height: 100%;
 
+    .aside-close {
+      width: 0;
+    }
+
     &-aside {
-      flex: 0 0 360px;
+      flex: 0 0 auto;
+      width: 360px;
       overflow: auto;
       border-right: 1px solid #fcfcfc;
       height: calc(100% - 64px);
+      transition: width 0.3s linear;
+
+      .aside-toggle {
+        position: fixed;
+        top: 55%;
+        left: 0px;
+        width: 24px;
+        height: 24px;
+        font-size: 24px;
+        text-align: center;
+        cursor: pointer;
+        z-index: 2;
+        font-weight: bold;
+      }
+
     }
     &-body {
       flex: 1 1 auto;
