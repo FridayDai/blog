@@ -97,12 +97,12 @@ module.exports = {
         inline: true,
         compress: true,
         proxy: {
-            // '/api/v1/op/*': {
-            //     // 'target': 'http://10.91.255.79:8001',
-            //     'target': 'http://10.92.4.98:8021',
-            //     'pathRewrite': { '^/api/v1/op': '/api/v1' },
-            //     'secure': false
-            // },
+            '/rest/*': {
+                // 'target': 'http://10.91.255.79:8001',
+                'target': 'https://106.15.93.13/',
+                // 'pathRewrite': { '^/api/v1/op': '/api/v1' },
+                'secure': false
+            },
             '/api/*': {
                 // 'target': 'http://10.91.255.79:8001',
                 // 'target': 'http://localhost:3003/',

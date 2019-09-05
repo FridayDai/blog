@@ -3,6 +3,20 @@ import { dispatch } from '../../store';
 import { AJAX_PROGREESS } from '../action/loginDao';
 import { toast } from 'react-component-dy';
 import Nprogress from 'nprogress';
+// 请求拦截器
+// axios.interceptors.request.use(req => {
+//     // 对 post 请求数据进行处理
+//     if (req.method === 'post') {
+//         Object.keys(req.data).forEach(item => {
+//             req.data[item] = JSON.stringify(req.data[item]);
+//         });
+//         req.data = qs.stringify(req.data)
+//     }
+//     return req
+// }, error => {
+//     // 请求出错时处理
+//     return Promise.reject(error)
+// });
 
 const parseRes = (res) => {
     if(res.status >= 200 && res.status < 400) {
@@ -34,14 +48,14 @@ export const axiosPostCustomize = (url: string, params: {}) => {
 };
 
 export const axiosGet = (url: string, params: {} | null) => {
-    return axiosCustomize(url, params, 'GET', 'application/json', {});
+    return axiosCustomize(url, params, 'GET', '', {});
 };
 
 export const axiosPost = (url: string, params: {} | null) => {
     return axiosCustomize(url, params, 'POST', 'application/json', {});
 };
 
-export const axiosCustomize = (url:string, data: {} | null, method: Method = 'POST', contentType:string = 'application/json', rest: {}) => {
+export const axiosCustomize = (url:string, data: {} | null, method: Method = 'POST', contentType:string, rest: {}) => {
     // {
     //     // `url` is the server URL that will be used for the request
     //     url: '/user',
@@ -208,6 +222,7 @@ export const axiosCustomize = (url:string, data: {} | null, method: Method = 'PO
         },
         data,
         url,
+        'withCredentials': true,
         ...rest
     };
 
@@ -219,11 +234,27 @@ export const axiosCustomize = (url:string, data: {} | null, method: Method = 'PO
 export interface Res {
     data?: any,
     msg?: string,
-    status: number
+    status?: number,
+    code?: number
 };
 
 export const handleRes = (res: Res, cb: Function) => {
     if(res && res.status === 200) {
         cb();
+    }
+};
+
+export const debound = (fn, delay) => {
+    let timer;
+
+    return function(...args) {
+        if(timer) {
+            clearTimeout(timer);
+            timer = null;
+        }
+
+        timer = setTimeout(() => {
+            fn(...args);
+        }, delay);
     }
 };

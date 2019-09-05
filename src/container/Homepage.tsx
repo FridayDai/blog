@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Route, Link, Switch, withRouter } from "react-router-dom";
 import Login from './Login';
-import Test from './Test';
+import Write from './Write';
 import Doc from './Doc';
 import { connect } from 'react-redux';
 
@@ -22,7 +22,7 @@ class Homepage extends React.Component<any, {}> {
                 <Switch>
                     <Route exact path='/' component={Login} />
                     <Route exact path='/login' component={Login} />
-                    <Route exact path='/test' component={Test} />
+                    <Route exact path='/write' component={Write} />
                     <Route exact path='/doc' component={Doc} />
                 </Switch>
             </div>

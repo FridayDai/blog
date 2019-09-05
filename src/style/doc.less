@@ -30,6 +30,7 @@
       flex: 0 0 auto;
       width: 360px;
       overflow: auto;
+      overflow-x: hidden;
       border-right: 1px solid #fcfcfc;
       height: calc(100% - 64px);
       transition: width 0.3s linear;
@@ -56,4 +57,12 @@
       border-left: 1px solid #eaeaea;
     }
   }
+}
+
+.aside-title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 98%;
+  white-space: nowrap;
+  position: relative;
 }

@@ -34,7 +34,9 @@
     "mysql2": "^1.6.5",
     "nprogress": "^0.2.0",
     "qrcode": "^1.4.1",
+    "qs": "^6.8.0",
     "react": "^16.8.6",
+    "react-codemirror": "^1.0.0",
     "react-component-dy": "^1.0.30",
     "react-dom": "^16.8.6",
     "react-markdown": "^4.1.0",
@@ -44,7 +46,8 @@
     "redux": "^4.0.1",
     "sequelize": "^5.10.0",
     "styletron-engine-atomic": "^1.4.0",
-    "styletron-react": "^5.2.0"
+    "styletron-react": "^5.2.0",
+    "swiper": "^4.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

@@ -49,3 +49,7 @@ export const onSearchKeyword = (value) => (dispatch) => {
         });
     });
 };
+
+export const saveDoc = (title, desc = '', source) => {
+    return axiosPost('/rest/saveDoc', { title, desc, source }).then(res => res);
+};

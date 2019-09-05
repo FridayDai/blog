@@ -4,7 +4,7 @@ import CodeBlock from './CodeBlock';
 
 const Content = ({ content }) => {
     return (
-        <div style={{ 'padding': '24px' }}>
+        <div style={{ 'padding': '12px' }}>
             <ReactMarkdown
                 className={'markdown-body'}
                 escapeHtml={false}

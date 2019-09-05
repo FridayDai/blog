@@ -8,6 +8,7 @@ import '../style/doc.less';
 import { onNavChange, getNav, onInputKeyword, onSearchKeyword } from '../action/docDao';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import {start} from "repl";
 
 const prefixCls = 'doc-container';
 let timeout;
@@ -38,6 +39,29 @@ class Doc extends React.Component<DocProps, DocStates> {
 
     componentDidMount() {
         dispatch(getNav());
+        document.body.addEventListener('mousedown', (e: MouseEvent) => {
+            let node = e.target as HTMLElement;
+            if(node && node.className === 'aside-title') {
+                const startWidth = e.clientX;
+
+                node.onmousemove = (event: MouseEvent) => {
+                    const offset = startWidth - event.clientX;
+                    if(offset > 0) {
+                        // 左滑
+                        node.style.right = `${Math.abs(offset) > 30 ? 30 : Math.abs(offset)}px`;
+                    } else {
+                        // node.style.right = `-${Math.abs(offset) > 30 ? 30 : Math.abs(offset)}px`;
+                    }
+                };
+                // document.body.addEventListener('mousemove', (e: MouseEvent) => {
+                //
+                // });
+                document.body.onmouseup = () => {
+                    node.onmousemove = null;
+                    node.onmouseup = null;
+                }
+            }
+        });
     }
 
     clear() {
@@ -58,7 +82,7 @@ class Doc extends React.Component<DocProps, DocStates> {
         return (
             <div className={prefixCls}>
                 <header className={`${prefixCls}-header`}>
-                    <span>文档</span>
+                    <span style={{ 'cursor': 'pointer' }} onClick={() => this.props.history.push('/write')}>文档</span>
                 </header>
                 <section className={contentCls}>
                     <aside className={asideToggleCls}>
@@ -77,7 +101,11 @@ class Doc extends React.Component<DocProps, DocStates> {
                             }}
                             nav={nav}
                             itemId={itemId}
-                            onNavChange={(id) => dispatch(onNavChange(id))}
+                            onNavChange={(id) => {
+                                if(id !== itemId) {
+                                    dispatch(onNavChange(id));
+                                }
+                            }}
                         />
                     </aside>
                     <section className={`${contentCls}-body`}>

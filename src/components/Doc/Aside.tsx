@@ -16,9 +16,17 @@ export interface Item {
 }
 
 const Aside = ({nav, itemId, onNavChange, value, onInputKeyword}) => {
+    const newNav = Array();
+    nav.forEach(item => {
+        newNav.push({
+            'itemId': item.itemId,
+            'title': <div className='aside-title'>{item.title}</div>
+        });
+    });
+
     return (
         <React.Fragment>
-            <div style={{ 'position': 'sticky', 'top': '0px' }}>
+            <div style={{ 'position': 'sticky', 'top': '0px', 'zIndex': 3 }}>
                 <Input
                     endEnhancer={<Search size="18px" />}
                     placeholder={'Keyword'}
@@ -28,21 +36,21 @@ const Aside = ({nav, itemId, onNavChange, value, onInputKeyword}) => {
             </div>
 
             <Navigation
-                items={nav}
+                items={newNav}
                 activeItemId={itemId}
                 onChange={({event, item}) => {
                     onNavChange(item.itemId);
                     event.preventDefault();
                 }}
                 overrides={{
-                    NavItem: {
-                        style: {
-                            'text-overflow': 'ellipsis',
-                            'overflow': 'hidden',
-                            'width': '98%',
-                            'white-space': 'nowrap'
-                        }
-                    },
+                    // NavItem: {
+                    //     style: {
+                    //         'text-overflow': 'ellipsis',
+                    //         'overflow': 'hidden',
+                    //         'width': '98%',
+                    //         'white-space': 'nowrap'
+                    //     }
+                    // },
                     // NavItem: {
                     //     style: ({$active, $theme}) => {
                     //         if (!$active)
