@@ -4,6 +4,7 @@ export const invariant = (...args) => {
         const item = [...args][i];
         if(item === null || item === undefined || !item) {
             flag = true;
+            throw new Error('args is null');
             break;
         }
     }

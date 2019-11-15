@@ -13,25 +13,30 @@ router.get('/getDocList', async (req, res) => {
 
 //  queryString pageNo, pageSize
 router.get('/getDocListPage', async (req, res, next) => {
-    const { pageNo, pageSize } = req.query;
-    if(invariant(pageNo, pageSize)) {
-        next(new Error('variable is null'));
-    } else {
+    try {
+        const { pageNo, pageSize } = req.query;
+        invariant(pageNo, pageSize);
+
         const docList = await getDocListPage(pageNo, pageSize);
         res.send({...Data, data: docList});
+    } catch (e){
+        next(e);
     }
 });
 
 router.post('/getDocListByKeyword', async(req, res, next) => {
-    const { keyword } = req.body;
-    let docList = [];
-    if(invariant(keyword)) {
-        //next(new Error('variable is null'));
-        docList = await getDocTitle();
-    } else {
-        docList = await getDocListByKeyword(keyword);
+    try {
+        const { keyword } = req.body;
+        let docList = [];
+        if(!keyword) {
+            docList = await getDocTitle();
+        } else {
+            docList = await getDocListByKeyword(keyword);
+        }
+        res.send({...Data, data: docList});
+    } catch (e) {
+        next(e);
     }
-    res.send({...Data, data: docList});
 });
 
 router.get('/getDocTitle', async (req, res) => {
@@ -40,9 +45,15 @@ router.get('/getDocTitle', async (req, res) => {
 });
 
 router.get('/getDocById', async(req, res) => {
-    const id = req.query.id;
-    const doc = await getDocById(id);
-    res.send({...Data, data: doc});
+    try {
+        const id = req.query.id;
+        invariant(id);
+
+        const doc = await getDocById(id);
+        res.send({...Data, data: doc});
+    } catch (e) {
+        next(e);
+    }
 });
 
 export default router;
