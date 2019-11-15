@@ -27,7 +27,7 @@ const instance = new Sequelize('koa', 'root', 'root', {
     // },
     pool: {
         max: 20, // 最大连接数
-        min: 1, // 最小连接数
+        min: 0, // 最小连接数
         idle: 30000 // 30秒释放
     }
 });

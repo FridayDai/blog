@@ -2,7 +2,7 @@ import { createLogger } from '../../config/log4j';
 import Op from 'sequelize/lib/operators';
 import UserTable from '../table/userTable';
 
-const logger = createLogger('Test_Dao');
+const logger = createLogger('Login_Dao');
 
 export const findAll = () => {
     return UserTable.findAll().then(res => res);

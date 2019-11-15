@@ -4,6 +4,7 @@ import { TestRouter, LoginRouter, DocRouter } from './router/index';
 import helmet from 'helmet';
 import { timeHandler, errorHandler, jwtHandler } from './middleware/handler';
 
+const port = 3003;
 const prefix = '/api';
 const app = express();
 app.use(helmet());
@@ -18,4 +19,4 @@ app.use('/test', TestRouter);
 
 // errorHandler 最后调用
 app.use(errorHandler);
-app.listen(3002, () => console.log('started, port is 3002'));
+app.listen(port, () => console.log(`started, port is ${port}`));
