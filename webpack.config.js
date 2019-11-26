@@ -105,7 +105,7 @@ module.exports = {
             },
             '/api/*': {
                 // 'target': 'http://10.91.255.79:8001',
-                'target': 'http://localhost:3003/',
+                'target': 'http://localhost:3002/',
                 // 'target': 'http://106.15.93.13:3002/',
                 'secure': false
             }

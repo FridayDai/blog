@@ -1,8 +1,26 @@
 import * as React from 'react';
+import Loadable from 'react-loadable';
 import { Route, Link, Switch, withRouter } from "react-router-dom";
-import Login from './Login';
-import Write from './Write';
-import Doc from './Doc';
+import { Loading } from './Loading';
+
+const Login = Loadable({
+    'loader': () => import('./Login'),
+    'loading': Loading
+});
+
+const Write = Loadable({
+    'loader': () => import('./Write'),
+    'loading': Loading
+});
+
+const Doc = Loadable({
+    'loader': () => import('./Doc'),
+    'loading': Loading
+});
+
+// import Login from './Login';
+// import Write from './Write';
+// import Doc from './Doc';
 import { connect } from 'react-redux';
 
 let defaultPrefix = 'homepage-container';

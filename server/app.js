@@ -4,7 +4,7 @@ import { TestRouter, LoginRouter, DocRouter } from './router/index';
 import helmet from 'helmet';
 import { timeHandler, errorHandler, jwtHandler } from './middleware/handler';
 
-const port = 3003;
+const port = 3002;
 const prefix = '/api';
 const app = express();
 app.use(helmet());

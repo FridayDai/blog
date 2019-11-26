@@ -254,7 +254,7 @@ export const debound = (fn, delay) => {
         }
 
         timer = setTimeout(() => {
-            fn(...args);
+            fn.call(this, ...args);
         }, delay);
     }
 };
