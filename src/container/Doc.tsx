@@ -8,7 +8,6 @@ import '../style/doc.less';
 import { onNavChange, getNav, onInputKeyword, onSearchKeyword } from '../action/docDao';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import {start} from "repl";
 
 const prefixCls = 'doc-container';
 let timeout;
@@ -110,6 +109,9 @@ class Doc extends React.Component<DocProps, DocStates> {
                     </aside>
                     <section className={`${contentCls}-body`}>
                         <Content
+                            id={this.props.docProps.itemId}
+                            history={this.props.history}
+                            canEdit={true}
                             content={content}
                         />
                     </section>

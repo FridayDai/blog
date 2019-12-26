@@ -258,3 +258,17 @@ export const debound = (fn, delay) => {
         }, delay);
     }
 };
+
+export const getUrlParams = (keyName) => {
+    const pairs = window.location.search.slice(1);
+    const items = pairs.split('&');
+    const map = {};
+    for(let i = 0; i < items.length; i++) {
+        const key = items[i].split('=')[0] ? items[i].split('=')[0] : '';
+        const value = items[i].split('=')[1] ? items[i].split('=')[1] : '';
+        if(key && !map[key]) {
+            map[key] = decodeURIComponent(decodeURIComponent(value));
+        }
+    }
+    return map[keyName] || '';
+};

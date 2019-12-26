@@ -76,6 +76,28 @@ export const getDocListByKeyword = (keyword) => {
     }).then(res => res).catch(xhr => logger.error(xhr));
 };
 
+export const updateDocById = (id, title, desc, text) => {
+    return DocTable.update({
+        title: title,
+        desc: desc,
+        text: text
+    }, {
+        where: {
+            id: id
+        }
+    }).then(res => res).catch(xhr => logger.error(xhr));
+};
+
+export const deleteDocById = (id) => {
+    return DocTable.update({
+        deleteFlag: 1
+    }, {
+        where: {
+            id: id
+        }
+    }).then(res => res).catch(xhr => logger.error(xhr));
+};
+
 // export const findUserAndCountAll = () => {
 //     return User.findAndCountAll({
 //         attributes: ['id', 'name', 'createTime', 'updateTime'],

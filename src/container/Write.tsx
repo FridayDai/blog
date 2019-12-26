@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { saveDoc } from '../action/docDao';
-import CodeMirror from 'react-codemirror';
+import { saveDoc, getDocById, updateDocById } from '../action/docDao';
+import {Controlled as CodeMirror} from 'react-codemirror2';
 import Content from '../components/Doc/Content';
-// import { dispatch } from '../../store';
 import '../style/write.less';
 import 'codemirror/mode/markdown/markdown';
 import { connect } from 'react-redux';
@@ -15,7 +14,7 @@ import {
     ModalButton, ModalProps, CLOSE_SOURCE,
 } from 'baseui/modal';
 import { Input } from 'baseui/input';
-import { Res } from "../util";
+import {Res, getUrlParams, handleRes} from "../util";
 import { toast } from "react-component-dy";
 
 const prefixCls = 'write-container';
@@ -27,10 +26,16 @@ interface IWriteProps {
 }
 interface IWriteState {
     isOpen: boolean,
-    code: string
+    code: string,
+    title: string,
+    desc: string
 }
 interface ISaveModalProps {
     isOpen: boolean,
+    title: string,
+    desc: string,
+    onTitleChange: Function,
+    onDescChange: Function,
     onClose?: (
         args: {
             closeSource?: CLOSE_SOURCE[keyof CLOSE_SOURCE];
@@ -40,16 +45,31 @@ interface ISaveModalProps {
 }
 
 class Write extends React.Component<IWriteProps, IWriteState> {
+    private codeMirror;
+    private id;
+
     constructor(props) {
         super(props);
+        this.codeMirror = null;
+        this.id = null;
         this.state = {
             'isOpen': false,
-            'code': '### write something'
+            'code': '### write something',
+            'title': '',
+            'desc': ''
         };
         this.ctrlS = this.ctrlS.bind(this);
     }
 
-    componentDidMount(): void {
+    async componentDidMount(): Promise<any> {
+        const id = getUrlParams('id');
+        this.id = id;
+        if(id) {
+            const res = await getDocById(id);
+            handleRes(res, () => {
+                this.setState({ 'code': res.data.text, 'title': res.data.title, 'desc': res.data.desc });
+            });
+        }
         document.body.addEventListener('keydown', this.ctrlS);
     }
 
@@ -68,9 +88,15 @@ class Write extends React.Component<IWriteProps, IWriteState> {
         return (
             <div className={prefixCls}>
                 <CodeMirror
-                    autoFocus={true}
+                    className='codeMirror-area'
+                    ref={node => { this.codeMirror = node; }}
+                    onBeforeChange={(editor, data, value) => {
+                        this.setState({'code': value}); // must be managed here
+                    }}
                     value={this.state.code}
-                    onChange={(newCode) => this.setState({ 'code': newCode })}
+                    onChange={(editor, metadata, value) => {
+                        this.setState({ 'code': value });
+                    }}
                     options={{
                         mode: 'markdown',
                         lineNumbers: true,
@@ -78,19 +104,35 @@ class Write extends React.Component<IWriteProps, IWriteState> {
                 />
                 <div style={{ 'width': '50%', 'border': '1px solid #ccc', 'overflow': 'auto' }}>
                     <Content
+                        id={''}
+                        history={this.props.history}
+                        canEdit={false}
                         content={{ 'text': this.state.code }}
                     />
                 </div>
                 <SaveModal
+                    title={this.state.title}
+                    desc={this.state.desc}
+                    onTitleChange={value => this.setState({ 'title': value })}
+                    onDescChange={value => this.setState({ 'desc': value })}
                     isOpen={this.state.isOpen}
                     onClose={() => this.setState({ 'isOpen': false })}
                     onOK={async (title, desc) => {
                         this.setState({ 'isOpen': false });
-                        const res: Res = await saveDoc(title, desc, this.state.code);
-                        if(res.code === 10000) {
-                            toast.success('save success');
+                        if(this.id) {
+                            const res:Res = await updateDocById(this.id, title, desc, this.state.code);
+                            if(res.status === 200) {
+                                toast.success('更新成功');
 
-                            setTimeout(() => this.props.history.push('/doc'), 1500);
+                                setTimeout(() => this.props.history.push('/doc'), 1200);
+                            }
+                        } else {
+                            const res: Res = await saveDoc(title, desc, this.state.code);
+                            if(res.code === 10000) {
+                                toast.success('保存成功');
+
+                                setTimeout(() => this.props.history.push('/doc'), 1200);
+                            }
                         }
                     }}
                 />
@@ -105,9 +147,9 @@ const Bind = (Component, mapStateToProps = (state) => state) => {
 
 export default Bind(Write);
 
-const SaveModal = ({isOpen, onClose, onOK}: ISaveModalProps) => {
-    const [title, setTitle] = React.useState('');
-    const [desc, setDesc] = React.useState('');
+const SaveModal = ({title, desc, onTitleChange, onDescChange, isOpen, onClose, onOK}: ISaveModalProps) => {
+    // const [title, setTitle] = React.useState('');
+    // const [desc, setDesc] = React.useState('');
 
     return (
         <Modal onClose={onClose} isOpen={isOpen}>
@@ -116,12 +158,12 @@ const SaveModal = ({isOpen, onClose, onOK}: ISaveModalProps) => {
                 <p>请输入title</p>
                 <Input
                     value={title}
-                    onChange={(e) => setTitle(e.currentTarget.value)}
+                    onChange={(e) => onTitleChange(e.currentTarget.value)}
                 />
                 <p>请输入description</p>
                 <Input
                     value={desc}
-                    onChange={(e) => setDesc(e.currentTarget.value)}
+                    onChange={(e) => onDescChange(e.currentTarget.value)}
                 />
             </ModalBody>
             <ModalFooter>
