@@ -105,8 +105,9 @@ module.exports = {
             },
             '/api/*': {
                 // 'target': 'http://10.91.255.79:8001',
-                'target': 'http://localhost:3002/',
-                // 'target': 'http://106.15.93.13:3002/',
+                // 'target': 'http://localhost:3002/',
+                'changeOrigin': true,
+                'target': 'http://106.15.93.13:3001/',
                 'secure': false
             }
         }

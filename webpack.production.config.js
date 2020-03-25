@@ -5,6 +5,10 @@ const DIST = path.resolve(__dirname, 'dist');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const htmlwebpackplugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 const plugins = [
     new htmlwebpackplugin(
@@ -35,7 +39,7 @@ module.exports = {
     },
     output: {
         path: DIST,
-        publicPath: '/',
+        publicPath: isProduction ? '/' : '/',
         chunkFilename: 'bundle-[name]-[chunkhash:8].js',
         filename: 'bundle_[name]_[hash:8].js' // 结束最终JS文件
     },
@@ -52,6 +56,7 @@ module.exports = {
         extensions: [ '.tsx', '.ts', '.js' ]
     },
     optimization: {
+        minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
         splitChunks: {
             cacheGroups: {
                 commons: {
