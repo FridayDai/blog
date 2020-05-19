@@ -2,6 +2,7 @@ import * as React from 'react';
 import Loadable from 'react-loadable';
 import { Route, Link, Switch, withRouter } from "react-router-dom";
 import { Loading } from './Loading';
+import '../../LearnAllLife/React/react';
 
 const Login = Loadable({
     'loader': () => import('./Login'),
@@ -15,6 +16,10 @@ const Write = Loadable({
 
 const Doc = Loadable({
     'loader': () => import('./Doc'),
+    'loading': Loading
+});
+const Test = Loadable({
+    'loader': () => import('../../LearnAllLife/css/HOC'),
     'loading': Loading
 });
 
@@ -42,6 +47,7 @@ class Homepage extends React.Component<any, {}> {
                     <Route exact path='/login' component={Login} />
                     <Route exact path='/write' component={Write} />
                     <Route exact path='/doc' component={Doc} />
+                    <Route exact path='/test' component={Test} />
                 </Switch>
             </div>
         );

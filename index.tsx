@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
 import { render } from 'react-dom';
 import { Provider }from 'react-redux';
 import store from './store';
@@ -9,6 +9,8 @@ import { Provider as StyletronProvider } from 'styletron-react';
 import { LightTheme, BaseProvider } from 'baseui';
 import '@style/index.less';
 
+import Test from './LearnAllLife/React/Test';
+
 const engine = new Styletron();
 
 const container = document.querySelector('#container');
@@ -17,6 +19,7 @@ render(
         <Router>
             <StyletronProvider value={engine}>
                 <BaseProvider theme={LightTheme}>
+                    <Test />
                     <Homepage />
                 </BaseProvider>
             </StyletronProvider>
