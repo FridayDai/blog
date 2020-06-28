@@ -21,10 +21,20 @@ const res = [
     }
 ];
 
-const result = [];
-
-const filterdList = nodeList.filter(item => item.parentId === 0);
-
-function convert(nodeList) {
-
+function myMap(arr, fn) {
+    return arr.reduce((acc, value, index, array) => {
+        return acc.concat([fn(value, index, array)]);
+    }, []);
 }
+
+function myfilter(arr, fn) {
+    return arr.reduce((acc, value, index, array) => {
+        if(fn(value, index, array) === true) {
+            console.log(acc);
+            return acc.push(value);
+        }
+    }, []);
+}
+
+// console.log(myfilter([1,2,3,4,5], (item) => item > 2));
+console.log(myMap([1,2,3,4,5], (item) => item * 2));
