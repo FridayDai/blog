@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { TestRouter, LoginRouter, DocRouter } from './router/index';
+import { TestRouter, LoginRouter, DocRouter, UploadRouter } from './router/index';
 import helmet from 'helmet';
 import { timeHandler, errorHandler, jwtHandler } from './middleware/handler';
 
@@ -15,6 +15,7 @@ app.use(timeHandler);
 // app.use(jwtHandler);
 app.use(prefix, LoginRouter);
 app.use(prefix, DocRouter);
+app.use(prefix, UploadRouter);
 app.use('/test', TestRouter);
 
 // errorHandler 最后调用
