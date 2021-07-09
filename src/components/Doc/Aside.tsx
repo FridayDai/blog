@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {Item, Navigation} from 'baseui/side-navigation';
+// @ts-ignore
+import { Item, Navigation } from 'baseui/side-navigation';
 import {Input} from "baseui/input";
 import {Search} from 'baseui/icon';
 

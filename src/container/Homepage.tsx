@@ -18,8 +18,9 @@ const Doc = Loadable({
     'loader': () => import('./Doc'),
     'loading': Loading
 });
-const Test = Loadable({
-    'loader': () => import('../../LearnAllLife/css/HOC'),
+
+const Upload = Loadable({
+    'loader': () => import('./Upload'),
     'loading': Loading
 });
 
@@ -47,7 +48,7 @@ class Homepage extends React.Component<any, {}> {
                     <Route exact path='/login' component={Login} />
                     <Route exact path='/write' component={Write} />
                     <Route exact path='/doc' component={Doc} />
-                    <Route exact path='/test' component={Test} />
+                    <Route exact path='/upload' component={Upload} />
                 </Switch>
             </div>
         );

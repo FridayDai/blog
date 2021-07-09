@@ -87,7 +87,7 @@ module.exports = {
         extensions: [ '.tsx', '.ts', '.js' ]
     },
 
-    devtool: "source-map",
+    devtool: "eval-source-map",
     devServer: {
         host: '0.0.0.0', // 你希望服务器外部可访问，指定
         port: 8899,
@@ -105,9 +105,9 @@ module.exports = {
             },
             '/api/*': {
                 // 'target': 'http://10.91.255.79:8001',
-                // 'target': 'http://localhost:3002/',
+                'target': 'http://localhost:3002/',
                 'changeOrigin': true,
-                'target': 'http://106.15.93.13:3001/',
+                // 'target': 'http://106.15.93.13:3001/',
                 'secure': false
             }
         }
