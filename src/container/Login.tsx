@@ -7,12 +7,14 @@ import { login } from '../action/loginDao';
 import '@style/login.less';
 import { toast } from 'react-component-dy';
 import { connect } from 'react-redux';
+import { record, Replayer, getReplayConsolePlugin, getRecordConsolePlugin } from 'rrweb';
 
 let defaultPrefix = 'login-container';
 
 interface LoginState {
     username: string,
-    password: string
+    password: string,
+    event: []
 }
 export interface LoginObject {
     progressValue: number
@@ -23,6 +25,17 @@ export interface LoginProps {
     history?: any
 }
 
+const events = [];
+let stopFn = record({
+    emit(event) {
+        // const defaultLog = console.log["__rrweb_original__"] ? console.log["__rrweb_original__"] : console.log;
+        // defaultLog(event);
+        // @ts-ignore
+        events.push(event);
+    },
+    plugins: [getRecordConsolePlugin()],
+});
+
 class Login extends React.Component<LoginProps, LoginState> {
     private login: React.ReactNode;
 
@@ -30,7 +43,8 @@ class Login extends React.Component<LoginProps, LoginState> {
         super(props);
         this.state = {
             'username': '',
-            'password': ''
+            'password': '',
+            'event': []
         };
         this.pressEnter = this.pressEnter.bind(this);
     }
@@ -53,7 +67,20 @@ class Login extends React.Component<LoginProps, LoginState> {
         this.login = node;
     };
 
+    handleReplay = () => {
+        console.log(events);
+        const replayer = new Replayer(events, {
+            plugins: [
+                // @ts-ignore
+                getReplayConsolePlugin({level: ['info', 'log', 'warn', 'error']}),
+            ],
+        });
+        replayer.play();
+    }
+
     handleLogin = async() => {
+        console.log('lalalalal');
+
         const { history } = this.props;
         const { username, password } = this.state;
 
@@ -76,6 +103,8 @@ class Login extends React.Component<LoginProps, LoginState> {
             toast.error(res.msg);
         }
     };
+
+
 
     renderSVG(type) {
         return (
@@ -121,6 +150,15 @@ class Login extends React.Component<LoginProps, LoginState> {
                             onClick={this.handleLogin}
                         >
                             Login
+                        </Button>
+                    </div>
+                    <div>
+                        <Button
+                            overrides={{ 'BaseButton': { 'style': { 'width': '100%' } }}}
+                            kind={KIND.tertiary}
+                            onClick={this.handleReplay}
+                        >
+                            停止录制
                         </Button>
                     </div>
                 </div>
